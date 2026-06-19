@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 
-/* ─────────────────────────── CSS ─────────────────────────── */
 const css = `
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
@@ -12,10 +11,13 @@ const css = `
 *{scrollbar-width:thin;scrollbar-color:rgba(196,130,10,0.32) transparent;}
 
 .ep *{box-sizing:border-box;margin:0;padding:0;}
-.ep{background:#20242B;min-height:100vh;font-family:'Raleway',sans-serif;color:#F5E6C8;position:relative;overflow:hidden;padding-bottom:80px;}
+.ep{background:#20242B;min-height:100vh;font-family:'Raleway',sans-serif;color:#F5E6C8;
+  position:relative;overflow:hidden;padding-bottom:80px;}
 .geo-bg{position:absolute;inset:0;pointer-events:none;z-index:0;}
-.gtr{position:absolute;top:-100px;right:-80px;width:460px;height:460px;background:radial-gradient(ellipse,rgba(196,130,10,0.12) 0%,transparent 70%);}
-.gbl{position:absolute;bottom:-100px;left:-80px;width:380px;height:380px;background:radial-gradient(ellipse,rgba(196,130,10,0.08) 0%,transparent 70%);}
+.gtr{position:absolute;top:-100px;right:-80px;width:460px;height:460px;
+  background:radial-gradient(ellipse,rgba(196,130,10,0.12) 0%,transparent 70%);}
+.gbl{position:absolute;bottom:-100px;left:-80px;width:380px;height:380px;
+  background:radial-gradient(ellipse,rgba(196,130,10,0.08) 0%,transparent 70%);}
 .ec{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:0 44px;}
 
 /* ── Avatar ── */
@@ -31,17 +33,20 @@ const css = `
 .av-img.visible{display:block;}
 .av-inner{display:flex;flex-direction:column;align-items:center;gap:6px;position:relative;z-index:1;}
 .av-inner i{font-size:24px;color:#C4820A;}
-.av-inner span{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:1.8px;color:rgba(196,130,10,0.65);text-transform:uppercase;}
+.av-inner span{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:1.8px;
+  color:rgba(196,130,10,0.65);text-transform:uppercase;}
 .av-ring.has-img .av-inner{opacity:0;}
 .av-ring.has-img:hover .av-inner{opacity:1;position:absolute;inset:0;border-radius:50%;
-  background:rgba(26,29,35,0.62);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;}
+  background:rgba(26,29,35,0.62);display:flex;flex-direction:column;
+  align-items:center;justify-content:center;z-index:2;}
 .av-file{display:none;}
 
 /* ── Salary ── */
 .sal-sec{display:flex;align-items:center;justify-content:center;margin-bottom:28px;}
 .sal-wrap{display:flex;align-items:center;gap:7px;position:relative;width:220px;}
 .sal-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(196,130,10,0.22);}
-.sal-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
+.sal-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;
+  transform:scaleX(0);transform-origin:left;transition:transform .35s ease;}
 .sal-wrap:focus-within::after{transform:scaleX(1);}
 .sal-icon{font-size:13px;color:rgba(196,130,10,0.52);padding-bottom:7px;flex-shrink:0;}
 .sal-pkr{font-family:'Cinzel',serif;font-size:9.5px;color:#C4820A;opacity:.7;letter-spacing:1.2px;padding-bottom:7px;flex-shrink:0;}
@@ -49,7 +54,7 @@ const css = `
   font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;width:100%;padding-bottom:7px;}
 .sal-inp::placeholder{color:rgba(245,230,200,0.28);font-size:13px;font-weight:400;}
 
-/* ── Divider / Grid ── */
+/* ── Layout ── */
 .ep .divider{border:none;border-top:1px solid rgba(196,130,10,0.12);margin:0 0 26px;}
 .frow{display:grid;gap:0 40px;margin-bottom:26px;}
 .g3{grid-template-columns:1fr 1fr 1fr;}
@@ -57,7 +62,7 @@ const css = `
 .g1{grid-template-columns:1fr;}
 .field{position:relative;padding-bottom:2px;}
 
-/* ── Field underline (focus-within + .focused helper) ── */
+/* ── Underline fields ── */
 .fi-wrap{position:relative;display:flex;align-items:center;gap:7px;padding-bottom:6px;}
 .fi-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(245,230,200,0.12);}
 .fi-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;
@@ -67,6 +72,50 @@ const css = `
 .fi{background:transparent;border:none;outline:none;color:#F5E6C8;
   font-family:'Raleway',sans-serif;font-size:14px;width:100%;}
 .fi::placeholder{color:rgba(245,230,200,0.28);}
+
+/* ────────────────────────────────────────────────────────────
+   DATE INPUT — Native behavior, custom placeholder only
+   
+   Strategy: use real <input type="date"> inside a wrapper.
+   - When empty  → input color is transparent (hides "mm/dd/yyyy")
+                  + wrapper ::before shows our placeholder text
+   - When filled → input color is #F5E6C8 (normal), no ::before
+   - Calendar icon: native (::-webkit-calendar-picker-indicator)
+                    styled gold, right side, unchanged behavior
+   - NO left icon on date fields
+──────────────────────────────────────────────────────────── */
+.date-wrap{position:relative;flex:1;display:flex;align-items:center;}
+
+/* Placeholder via ::before on the wrapper (inputs can't use ::before) */
+.date-wrap.empty::before{
+  content: attr(data-ph);
+  position:absolute;left:0;top:50%;transform:translateY(-50%);
+  color:rgba(245,230,200,0.28);
+  font-family:'Raleway',sans-serif;font-size:14px;
+  pointer-events:none;   /* never blocks clicks through to the input */
+  z-index:1;
+  white-space:nowrap;
+}
+
+/* The actual native date input */
+.date-inp{
+  background:transparent;border:none;outline:none;
+  font-family:'Raleway',sans-serif;font-size:14px;
+  width:100%;cursor:pointer;
+  color-scheme:dark;       /* dark calendar popup */
+  position:relative;z-index:2;
+}
+/* When empty: hide the native "mm/dd/yyyy" text so placeholder shows */
+.date-inp.empty{color:transparent;}
+/* When filled: show text in our gold-white */
+.date-inp:not(.empty){color:#F5E6C8;}
+
+/* Style the native calendar icon (right side) — gold tint */
+.date-inp::-webkit-calendar-picker-indicator{
+  filter:invert(65%) sepia(40%) saturate(600%) hue-rotate(10deg);
+  cursor:pointer;opacity:.6;
+}
+.date-inp::-webkit-calendar-picker-indicator:hover{opacity:1;}
 
 /* ── Custom Gender Dropdown ── */
 .csel{position:relative;flex:1;outline:none;}
@@ -78,71 +127,9 @@ const css = `
   background:#1e2229;border:1px solid rgba(196,130,10,0.25);
   border-radius:3px;z-index:200;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.55);}
 .csel.open .csel-opts{display:block;}
-.csel-opt{padding:9px 14px;font-family:'Raleway',sans-serif;font-size:13.5px;color:#F5E6C8;
-  cursor:pointer;transition:background .15s;}
+.csel-opt{padding:9px 14px;font-family:'Raleway',sans-serif;font-size:13.5px;color:#F5E6C8;cursor:pointer;transition:background .15s;}
 .csel-opt:hover{background:rgba(196,130,10,0.12);}
 .csel-opt.selected{color:#C4820A;}
-
-/* ══════════════════════════════════════════════
-   DATE FIELD — Ghost Overlay Pattern
-   
-   Phase 1 (no value):
-     ┌─ .date-ghost-zone (flex:1, position:relative) ─┐  + cal-icon on right
-     │  ◉ .date-ghost   (opacity:0, absolute, inset:0) │  ← receives all clicks, browser opens picker
-     │  ◉ .date-phtext  (absolute, pointer-events:none)│  ← visible placeholder / set text
-     └───────────────────────────────────────────────-─┘
-
-   Phase 2 (value set):
-     ┌─ .date-real-wrap (flex:1) ─────────────────────┐
-     │  ◉ <input type="date">  visible, styled         │  ← native picker + our styled icon
-     └────────────────────────────────────────────────┘
-     cal-icon hidden (native date has its own on right)
-
-   The ghost is opacity:0 but full-size → browser click-to-open works
-   without ANY showPicker() call. No JS trick, no race condition.
-══════════════════════════════════════════════ */
-.date-ghost-zone{position:relative;flex:1;height:22px;display:flex;align-items:center;}
-.date-phtext{position:absolute;left:0;top:50%;transform:translateY(-50%);
-  font-family:'Raleway',sans-serif;font-size:14px;
-  color:rgba(245,230,200,0.28);pointer-events:none;white-space:nowrap;z-index:1;}
-.date-phtext.val{color:#F5E6C8;}
-
-/* Ghost — invisible but interactive, covers entire date-ghost-zone */
-.date-ghost{
-  position:absolute;inset:0;width:100%;height:100%;
-  opacity:0;cursor:pointer;z-index:2;
-  border:none;background:transparent;color:transparent;outline:none;
-}
-/* Hide native calendar indicator (we have our own on the right) */
-.date-ghost::-webkit-calendar-picker-indicator{
-  position:absolute;width:100%;height:100%;opacity:0;cursor:pointer;
-}
-
-/* Cal icon — sits right of .date-ghost-zone; z-index > ghost so it's clickable */
-.cal-icon{
-  font-size:14px;color:rgba(196,130,10,0.52);
-  cursor:pointer;flex-shrink:0;transition:color .2s;z-index:3;position:relative;
-}
-.cal-icon:hover{color:#C4820A;}
-
-/* Phase 2: real visible date input */
-.date-real-wrap{flex:1;display:none;align-items:center;}
-.date-real-wrap.active{display:flex;}
-.date-set{
-  background:transparent;border:none;outline:none;
-  font-family:'Raleway',sans-serif;font-size:14px;color:#F5E6C8;
-  width:100%;cursor:pointer;color-scheme:dark;
-}
-.date-set::-webkit-calendar-picker-indicator{
-  filter:invert(65%) sepia(40%) saturate(600%) hue-rotate(10deg);
-  cursor:pointer;opacity:.65;margin-left:4px;
-}
-.date-set::-webkit-calendar-picker-indicator:hover{opacity:1;}
-
-/* Hide ghost zone + cal-icon once phase2 is active */
-.fi-wrap.phase2 .date-ghost-zone{display:none;}
-.fi-wrap.phase2 .cal-icon{display:none;}
-.fi-wrap.phase2 .date-real-wrap{display:flex;}
 
 /* ── Language tags ── */
 .lang-inp{background:transparent;border:none;outline:none;color:#F5E6C8;
@@ -151,14 +138,12 @@ const css = `
 .lang-tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
 .lang-tags-row:empty{display:none;}
 .lang-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(196,130,10,0.1);
-  border:1px solid rgba(196,130,10,0.28);border-radius:2px;padding:2px 8px;
-  font-size:12px;color:#F5E6C8;}
+  border:1px solid rgba(196,130,10,0.28);border-radius:2px;padding:2px 8px;font-size:12px;color:#F5E6C8;}
 .lang-tag-del{font-size:9px;color:rgba(196,130,10,0.5);cursor:pointer;}
 .lang-tag-del:hover{color:#C4820A;}
 
 /* ── Pro sections ── */
-.pro-hdr{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:2.5px;color:#C4820A;
-  text-transform:uppercase;margin-bottom:13px;opacity:.85;}
+.pro-hdr{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:2.5px;color:#C4820A;text-transform:uppercase;margin-bottom:13px;opacity:.85;}
 .pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:26px;}
 .bul-inp-row{display:flex;align-items:center;gap:8px;padding-bottom:6px;position:relative;}
 .bul-inp-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(245,230,200,0.12);}
@@ -190,7 +175,6 @@ const css = `
 .btn-create:hover{background:#d4920f;}
 `;
 
-/* ─────────────────────────── HTML ─────────────────────────── */
 const html = `
 <div class="ep">
   <div class="geo-bg">
@@ -255,20 +239,11 @@ const html = `
         </div>
       </div>
 
-      <!-- Date of Birth -->
+      <!-- Date of Birth — native input, placeholder when empty, NO left icon -->
       <div class="field">
-        <div class="fi-wrap" id="dobWrap">
-          <i class="ti ti-calendar field-icon"></i>
-          <!-- Phase 1: Ghost zone -->
-          <div class="date-ghost-zone">
-            <span class="date-phtext" id="dobPhText">Date of Birth</span>
-            <input type="date" class="date-ghost" id="dobGhost"/>
-          </div>
-          <!-- Cal icon: right side, z-index above ghost -->
-          <i class="ti ti-calendar-event cal-icon" id="dobCalIcon"></i>
-          <!-- Phase 2: real visible date input -->
-          <div class="date-real-wrap" id="dobRealWrap">
-            <input type="date" class="date-set" id="dobReal"/>
+        <div class="fi-wrap">
+          <div class="date-wrap empty" id="dobWrap" data-ph="Date of Birth">
+            <input type="date" class="date-inp empty" id="dob"/>
           </div>
         </div>
       </div>
@@ -306,17 +281,11 @@ const html = `
         <div class="lang-tags-row" id="ltags"></div>
       </div>
 
-      <!-- Joining Date -->
+      <!-- Joining Date — native input, placeholder when empty, NO left icon -->
       <div class="field" style="grid-column:2/3;">
-        <div class="fi-wrap" id="jdateWrap">
-          <i class="ti ti-calendar field-icon"></i>
-          <div class="date-ghost-zone">
-            <span class="date-phtext" id="jdatePhText">Joining Date</span>
-            <input type="date" class="date-ghost" id="jdateGhost"/>
-          </div>
-          <i class="ti ti-calendar-event cal-icon" id="jdateCalIcon"></i>
-          <div class="date-real-wrap" id="jdateRealWrap">
-            <input type="date" class="date-set" id="jdateReal"/>
+        <div class="fi-wrap">
+          <div class="date-wrap empty" id="jdateWrap" data-ph="Joining Date">
+            <input type="date" class="date-inp empty" id="jdate"/>
           </div>
         </div>
       </div>
@@ -373,86 +342,27 @@ const html = `
 </div>
 `;
 
-/* ─────────────────────────── JS init ─────────────────────────── */
-
-/** Standard 100,000 format (international) */
+/* ── Salary: standard 100,000 format ── */
 function formatComma(raw: string): string {
   const digits = raw.replace(/\D/g, "");
-  if (!digits) return "";
-  return Number(digits).toLocaleString("en-US");
+  return digits ? Number(digits).toLocaleString("en-US") : "";
 }
 
-/**
- * Sets up a date field with the ghost-overlay pattern.
- *
- * Phase 1 (empty):
- *   - .date-ghost-zone visible: opacity-0 full-size date input covers the area.
- *     Clicking anywhere in the zone or on the cal-icon → browser opens picker natively.
- *   - .date-phtext shows placeholder (pointer-events:none — never blocks ghost).
- *   - cal-icon click → ghost.showPicker() (direct user-gesture handler → works reliably).
- *
- * Phase 2 (value set):
- *   - fi-wrap gets class "phase2" → hides ghost zone + cal-icon via CSS.
- *   - .date-real-wrap shown: real visible <input type="date"> with styled picker icon.
- *   - Clearing real input → reverts to Phase 1.
- */
-function setupDate(
-  root: HTMLElement,
-  ghostId: string, phTextId: string, calIconId: string,
-  wrapId: string, realWrapId: string, realId: string
-) {
-  const ghost    = root.querySelector(`#${ghostId}`)    as HTMLInputElement;
-  const phText   = root.querySelector(`#${phTextId}`)   as HTMLElement;
-  const calIcon  = root.querySelector(`#${calIconId}`)  as HTMLElement;
-  const wrap     = root.querySelector(`#${wrapId}`)     as HTMLElement;
-  const realWrap = root.querySelector(`#${realWrapId}`) as HTMLElement;
-  const realInp  = root.querySelector(`#${realId}`)     as HTMLInputElement;
-
-  // Cal icon: direct click handler → showPicker on ghost (user gesture → works in iframe)
-  calIcon.addEventListener("click", () => {
-    try { ghost.showPicker(); } catch { ghost.focus(); ghost.click(); }
-  });
-
-  // Ghost changed → activate Phase 2
-  ghost.addEventListener("change", () => {
-    if (!ghost.value) return;
-    realInp.value = ghost.value;
-    phText.textContent = formatDateDisplay(ghost.value);
-    phText.classList.add("val");
-    wrap.classList.add("phase2");
-    realWrap.classList.add("active");
-    // Flash underline
-    wrap.classList.add("focused");
-    setTimeout(() => wrap.classList.remove("focused"), 500);
-  });
-
-  // Phase 2 input changed / cleared
-  realInp.addEventListener("change", () => {
-    if (realInp.value) {
-      phText.textContent = formatDateDisplay(realInp.value);
-    } else {
-      // Clear → back to Phase 1
-      ghost.value = "";
-      phText.classList.remove("val");
-      phText.textContent = phText.dataset.ph!;
-      wrap.classList.remove("phase2");
-      realWrap.classList.remove("active");
-    }
-  });
-
-  // Store original placeholder
-  phText.dataset.ph = phText.textContent!;
-}
-
-function formatDateDisplay(val: string): string {
-  const [y, m, d] = val.split("-");
-  const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-  return `${parseInt(d,10)} ${months[parseInt(m,10)-1]} ${y}`;
+/* ── Date placeholder: toggle .empty on input + wrapper ── */
+function setupDatePlaceholder(inp: HTMLInputElement, wrap: HTMLElement) {
+  function sync() {
+    const empty = !inp.value;
+    inp.classList.toggle("empty", empty);
+    wrap.classList.toggle("empty", empty);
+  }
+  inp.addEventListener("change", sync);
+  inp.addEventListener("input",  sync);
+  sync(); // initial state
 }
 
 function initForm(root: HTMLDivElement) {
 
-  /* ── Salary ── */
+  /* Salary */
   const salInp = root.querySelector("#salInp") as HTMLInputElement;
   salInp.addEventListener("keydown", (e) => {
     const k = (e as KeyboardEvent).key;
@@ -460,24 +370,24 @@ function initForm(root: HTMLDivElement) {
       e.preventDefault();
   });
   salInp.addEventListener("input", () => {
-    const pos = salInp.selectionStart ?? salInp.value.length;
-    const raw = salInp.value.replace(/,/g, "");
-    const formatted = formatComma(raw);
-    salInp.value = formatted;
-    // Restore cursor roughly
-    const diff = formatted.length - salInp.value.length;
-    try { salInp.setSelectionRange(pos + diff, pos + diff); } catch {}
+    salInp.value = formatComma(salInp.value.replace(/,/g, ""));
   });
 
-  /* ── Date fields ── */
-  setupDate(root, "dobGhost",   "dobPhText",   "dobCalIcon",   "dobWrap",   "dobRealWrap",   "dobReal");
-  setupDate(root, "jdateGhost", "jdatePhText", "jdateCalIcon", "jdateWrap", "jdateRealWrap", "jdateReal");
+  /* Date placeholders */
+  setupDatePlaceholder(
+    root.querySelector("#dob")    as HTMLInputElement,
+    root.querySelector("#dobWrap") as HTMLElement
+  );
+  setupDatePlaceholder(
+    root.querySelector("#jdate")    as HTMLInputElement,
+    root.querySelector("#jdateWrap") as HTMLElement
+  );
 
-  /* ── Custom Gender Dropdown ── */
-  const csel     = root.querySelector("#csel")     as HTMLElement;
-  const cselFace = root.querySelector("#cselFace") as HTMLElement;
-  const cselTxt  = root.querySelector("#cselTxt")  as HTMLElement;
-  const cselOpts = root.querySelector("#cselOpts") as HTMLElement;
+  /* Custom Gender Dropdown */
+  const csel     = root.querySelector("#csel")      as HTMLElement;
+  const cselFace = root.querySelector("#cselFace")  as HTMLElement;
+  const cselTxt  = root.querySelector("#cselTxt")   as HTMLElement;
+  const cselOpts = root.querySelector("#cselOpts")  as HTMLElement;
   const gWrap    = root.querySelector("#genderWrap") as HTMLElement;
 
   const toggleCsel = (e: Event) => {
@@ -488,7 +398,8 @@ function initForm(root: HTMLDivElement) {
   };
   cselFace.addEventListener("click", toggleCsel);
   csel.addEventListener("keydown", (e) => {
-    if ((e as KeyboardEvent).key === "Enter" || (e as KeyboardEvent).key === " ") toggleCsel(e);
+    const k = (e as KeyboardEvent).key;
+    if (k === "Enter" || k === " ") toggleCsel(e);
   });
   cselOpts.querySelectorAll(".csel-opt").forEach(opt => {
     opt.addEventListener("click", (e) => {
@@ -505,8 +416,8 @@ function initForm(root: HTMLDivElement) {
     gWrap.classList.remove("focused");
   });
 
-  /* ── Language tags — placeholder ALWAYS shown ── */
-  const langs: string[] = ["Urdu","Punjabi"];
+  /* Language tags — placeholder always visible */
+  const langs: string[] = ["Urdu", "Punjabi"];
   const ltags = root.querySelector("#ltags")!;
   const li    = root.querySelector("#li") as HTMLInputElement;
 
@@ -524,8 +435,7 @@ function initForm(root: HTMLDivElement) {
       tag.appendChild(lbl); tag.appendChild(x);
       ltags.appendChild(tag);
     });
-    // Placeholder NEVER removed regardless of tag count
-    li.placeholder = "Spoken Language";
+    li.placeholder = "Spoken Language"; // never clear
   }
   renderLangs();
 
@@ -541,7 +451,7 @@ function initForm(root: HTMLDivElement) {
     }
   });
 
-  /* ── Bullet lists ── */
+  /* Bullet lists */
   function makeBullet(listId: string, text: string) {
     const list = root.querySelector(`#${listId}`)!;
     const item = document.createElement("div"); item.className = "bul-item";
@@ -571,7 +481,9 @@ function initForm(root: HTMLDivElement) {
     const inp = root.querySelector(`#${inpId}`) as HTMLInputElement;
     const btn = root.querySelector(`#${addId}`)!;
     const add = () => { const v = inp.value.trim(); if (v) { makeBullet(listId, v); inp.value = ""; } };
-    inp.addEventListener("keydown", (e) => { if ((e as KeyboardEvent).key === "Enter") { e.preventDefault(); add(); } });
+    inp.addEventListener("keydown", (e) => {
+      if ((e as KeyboardEvent).key === "Enter") { e.preventDefault(); add(); }
+    });
     btn.addEventListener("click", add);
   }
   setupList("tinp","tadd","tlist");
@@ -584,7 +496,7 @@ function initForm(root: HTMLDivElement) {
   ["BBQ","Karahi","Biryani","Grilling"]
     .forEach(s => makeBullet("slist", s));
 
-  /* ── Avatar ── */
+  /* Avatar */
   const avRing = root.querySelector("#avRing") as HTMLElement;
   const avImg  = root.querySelector("#avImg")  as HTMLImageElement;
   const avFile = root.querySelector("#avFile") as HTMLInputElement;
@@ -600,7 +512,7 @@ function initForm(root: HTMLDivElement) {
   }
   avRing.addEventListener("click", () => avFile.click());
   avFile.addEventListener("change", () => { if (avFile.files?.[0]) applyImage(avFile.files[0]); });
-  avRing.addEventListener("dragover",  (e) => { e.preventDefault(); avRing.classList.add("drag-over"); });
+  avRing.addEventListener("dragover", (e) => { e.preventDefault(); avRing.classList.add("drag-over"); });
   avRing.addEventListener("dragleave", () => avRing.classList.remove("drag-over"));
   avRing.addEventListener("drop", (e) => {
     e.preventDefault();
@@ -610,7 +522,6 @@ function initForm(root: HTMLDivElement) {
   });
 }
 
-/* ─────────────────────────── Component ─────────────────────────── */
 export default function AddEmployee() {
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => { if (rootRef.current) initForm(rootRef.current); }, []);
