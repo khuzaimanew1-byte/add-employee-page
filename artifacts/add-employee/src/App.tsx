@@ -342,8 +342,10 @@ function setupDatePlaceholder(inp: HTMLInputElement, wrap: HTMLElement) {
   }
   inp.addEventListener("change", sync);
   inp.addEventListener("input", sync);
-  wrap.addEventListener("click", () => {
-    try { inp.showPicker(); } catch { inp.focus(); }
+  inp.addEventListener("click", () => {
+    if (inp.classList.contains("empty")) {
+      try { inp.showPicker(); } catch { inp.focus(); }
+    }
   });
   sync();
 }
