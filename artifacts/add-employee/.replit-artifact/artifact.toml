@@ -1,0 +1,21 @@
+kind = "web"
+previewPath = "/"
+title = "Add Employee"
+version = "1.0.0"
+id = "aEp3NmGxQkJ7fBhLdCvRwZ"
+
+[[services]]
+localPort = 3000
+name = "Add Employee"
+paths = ["/"]
+
+[services.env]
+PORT = "3000"
+BASE_PATH = "/"
+
+[services.development]
+run = "pnpm --filter @workspace/add-employee run dev"
+
+[services.production]
+build = "pnpm --filter @workspace/add-employee run build"
+serve = "static"
