@@ -87,6 +87,8 @@ const css = `
   width:100%;cursor:pointer;color-scheme:dark;position:relative;z-index:2;
 }
 .date-inp.empty{color:transparent;}
+.date-inp.empty::-webkit-datetime-edit{opacity:0;}
+.date-inp.empty::-webkit-datetime-edit-fields-wrapper{opacity:0;}
 .date-inp:not(.empty){color:#F5E6C8;}
 .date-inp::-webkit-calendar-picker-indicator{
   filter:invert(65%) sepia(40%) saturate(600%) hue-rotate(10deg);
