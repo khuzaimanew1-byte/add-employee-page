@@ -4,6 +4,13 @@ const css = `
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
 
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:rgba(196,130,10,0.04);}
+::-webkit-scrollbar-thumb{background:rgba(196,130,10,0.3);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(196,130,10,0.55);}
+* { scrollbar-width:thin; scrollbar-color:rgba(196,130,10,0.3) transparent; }
+
 .ep *{box-sizing:border-box;margin:0;padding:0;}
 .ep{background:#20242B;min-height:100vh;font-family:'Raleway',sans-serif;color:#F5E6C8;position:relative;overflow:hidden;padding-bottom:70px;}
 .geo-bg{position:absolute;inset:0;pointer-events:none;z-index:0;}
@@ -28,43 +35,41 @@ const css = `
 /* ── Salary ── */
 .sal-sec{display:flex;flex-direction:column;align-items:center;margin-top:10px;margin-bottom:30px;}
 .sal-wrap{display:flex;align-items:center;gap:8px;position:relative;width:230px;}
-.sal-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(196,130,10,0.3);}
-.sal-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1.5px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
+.sal-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(196,130,10,0.25);}
+.sal-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
 .sal-wrap:focus-within::after{transform:scaleX(1);}
 .sal-pkr{font-family:'Cinzel',serif;font-size:10px;color:#C4820A;opacity:0.75;letter-spacing:1px;flex-shrink:0;}
-.sal-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;letter-spacing:0.5px;width:100%;text-align:left;padding-bottom:6px;}
+.sal-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;width:100%;padding-bottom:6px;}
 .sal-inp::placeholder{color:rgba(245,230,200,0.28);font-size:13px;font-weight:400;}
-.sal-icon{font-size:13px;color:rgba(196,130,10,0.5);flex-shrink:0;padding-bottom:6px;}
+.sal-icon{font-size:13px;color:rgba(196,130,10,0.55);flex-shrink:0;padding-bottom:6px;}
 
-/* ── Layout ── */
+/* ── Divider ── */
 .ep .divider{border:none;border-top:1px solid rgba(196,130,10,0.13);margin:0 0 26px;}
+
+/* ── Grid ── */
 .frow{display:grid;gap:0 40px;margin-bottom:26px;}
 .g3{grid-template-columns:1fr 1fr 1fr;}
 .g2{grid-template-columns:1fr 1fr;}
 .g1{grid-template-columns:1fr;}
 .field{position:relative;padding-bottom:2px;}
 
-/* ── Field underline (animate left→right) ── */
-.fi-wrap{position:relative;display:flex;align-items:center;gap:6px;padding-bottom:6px;}
-.fi-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(245,230,200,0.15);}
-.fi-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1.5px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
+/* ── Field underline — thicker, animates left→right ── */
+.fi-wrap{position:relative;display:flex;align-items:center;gap:7px;padding-bottom:6px;}
+.fi-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(245,230,200,0.14);}
+.fi-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
 .fi-wrap:focus-within::after{transform:scaleX(1);}
-.fi-wrap i{font-size:14px;color:rgba(196,130,10,0.5);flex-shrink:0;}
+.fi-wrap > i{font-size:14px;color:rgba(196,130,10,0.52);flex-shrink:0;}
 .fi{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;width:100%;}
-.fi::placeholder{color:rgba(245,230,200,0.25);}
+.fi::placeholder{color:rgba(245,230,200,0.28);}
 
-/* ── Date field ──
-   Strategy: transparent full-size native date input sits on top
-   of a display-text span. Browser opens picker on direct click.
-   After value set, overlay is locked and only icon re-opens it.
-── */
+/* ── Date field ── */
 .date-field{position:relative;display:flex;align-items:center;width:100%;height:22px;}
-.date-display{font-family:'Raleway',sans-serif;font-size:14px;color:rgba(245,230,200,0.28);pointer-events:none;white-space:nowrap;overflow:hidden;line-height:22px;}
+.date-display{font-family:'Raleway',sans-serif;font-size:14px;color:rgba(245,230,200,0.28);pointer-events:none;white-space:nowrap;overflow:hidden;line-height:22px;flex:1;}
 .date-display.has-val{color:#F5E6C8;}
 .date-native{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;z-index:3;}
 .date-native::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}
 .date-native.locked{pointer-events:none;}
-.cal-btn{font-size:14px;color:rgba(196,130,10,0.5);cursor:pointer;flex-shrink:0;transition:color 0.2s;z-index:4;position:relative;}
+.cal-btn{font-size:14px;color:rgba(196,130,10,0.52);cursor:pointer;flex-shrink:0;transition:color 0.2s;z-index:4;position:relative;}
 .cal-btn:hover{color:#C4820A;}
 
 /* ── Select ── */
@@ -72,32 +77,36 @@ const css = `
 .gsel option{background:#272c34;color:#F5E6C8;}
 .chev{position:absolute;right:0;bottom:8px;font-size:13px;color:rgba(196,130,10,0.45);pointer-events:none;}
 
-/* ── Language field — tags below the line ── */
+/* ── Language tags — below the underline ── */
 .lang-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;width:100%;}
-.lang-inp::placeholder{color:rgba(245,230,200,0.25);}
-.lang-tags-row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:6px;min-height:0;}
+.lang-inp::placeholder{color:rgba(245,230,200,0.28);}
+.lang-tags-row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin-top:7px;min-height:0;}
 .lang-tags-row:empty{display:none;}
-.lang-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(196,130,10,0.12);border:1px solid rgba(196,130,10,0.25);border-radius:2px;padding:2px 7px;font-size:12px;color:#F5E6C8;cursor:default;}
+.lang-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(196,130,10,0.1);border:1px solid rgba(196,130,10,0.28);border-radius:2px;padding:2px 7px;font-size:12px;color:#F5E6C8;cursor:default;}
 .lang-tag-del{font-size:10px;color:rgba(196,130,10,0.55);cursor:pointer;line-height:1;margin-left:1px;}
 .lang-tag-del:hover{color:#C4820A;}
 
 /* ── Pro sections ── */
 .pro-hdr{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:2.5px;color:#C4820A;text-transform:uppercase;margin-bottom:13px;opacity:0.85;}
 .pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:26px;}
+
+/* Bullet input row — tick on the RIGHT */
 .bul-inp-row{display:flex;align-items:center;gap:8px;padding-bottom:6px;position:relative;}
-.bul-inp-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:rgba(245,230,200,0.15);}
-.bul-inp-row::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:1.5px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
+.bul-inp-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(245,230,200,0.14);}
+.bul-inp-row::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
 .bul-inp-row:focus-within::after{transform:scaleX(1);}
-.bul-inp-row i{font-size:14px;color:rgba(196,130,10,0.45);cursor:pointer;flex-shrink:0;}
-.bul-inp-row i:hover{color:#C4820A;}
-.bul-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:13.5px;width:100%;}
-.bul-inp::placeholder{color:rgba(245,230,200,0.22);font-style:italic;}
+.bul-add-btn{font-size:14px;color:rgba(196,130,10,0.45);cursor:pointer;flex-shrink:0;order:2;transition:color 0.2s;}
+.bul-add-btn:hover{color:#C4820A;}
+.bul-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:13.5px;flex:1;order:1;}
+.bul-inp::placeholder{color:rgba(245,230,200,0.25);font-style:italic;}
+
 .bul-item{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:default;}
 .bul-dot{width:4px;height:4px;border-radius:50%;background:#C4820A;flex-shrink:0;margin-left:2px;}
 .bul-txt{font-size:13.5px;color:#F5E6C8;flex:1;outline:none;font-family:'Raleway',sans-serif;background:transparent;border:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color 0.25s;cursor:default;}
 .bul-txt[contenteditable="true"]{border-bottom-color:#C4820A;cursor:text;}
 .bul-del{font-size:13px;color:rgba(196,130,10,0.35);cursor:pointer;opacity:0;transition:opacity 0.15s;flex-shrink:0;}
 .bul-item:hover .bul-del{opacity:1;}
+
 .bot-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:6px;}
 .bot-right{display:flex;align-items:flex-end;justify-content:flex-end;gap:14px;padding-bottom:4px;}
 .btn-cancel{background:transparent;border:1px solid rgba(196,130,10,0.3);color:rgba(245,230,200,0.55);padding:9px 22px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all 0.22s;border-radius:2px;}
@@ -135,7 +144,7 @@ const html = `
       <input class="av-file" type="file" id="avFile" accept="image/*"/>
     </div>
 
-    <!-- Salary — no label, with icon, new placeholder -->
+    <!-- Salary -->
     <div class="sal-sec">
       <div class="sal-wrap">
         <i class="ti ti-coin sal-icon"></i>
@@ -146,16 +155,19 @@ const html = `
 
     <hr class="divider">
 
-    <!-- Row 1: Name · Gender · DOB -->
+    <!-- Row 1: Full Name · Gender · Date of Birth -->
     <div class="frow g3">
       <div class="field">
         <div class="fi-wrap">
+          <i class="ti ti-user"></i>
           <input class="fi" type="text" placeholder="Full Name"/>
         </div>
       </div>
       <div class="field" style="position:relative;">
         <div class="fi-wrap">
+          <i class="ti ti-users-group"></i>
           <select class="gsel" id="gsel">
+            <option value="" disabled selected hidden></option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="custom">Custom</option>
@@ -163,7 +175,6 @@ const html = `
           <i class="ti ti-chevron-down chev" aria-hidden="true"></i>
         </div>
       </div>
-      <!-- Date of Birth -->
       <div class="field">
         <div class="fi-wrap" id="dobWrap">
           <div class="date-field">
@@ -179,18 +190,19 @@ const html = `
     <div class="frow g3">
       <div class="field">
         <div class="fi-wrap">
+          <i class="ti ti-id"></i>
           <input class="fi" type="text" placeholder="12345-1234567-1"/>
         </div>
       </div>
       <div class="field">
         <div class="fi-wrap">
-          <i class="ti ti-device-mobile" aria-hidden="true"></i>
+          <i class="ti ti-device-mobile"></i>
           <input class="fi" type="tel" placeholder="03XX-XXXXXXX"/>
         </div>
       </div>
       <div class="field">
         <div class="fi-wrap">
-          <i class="ti ti-mail" aria-hidden="true"></i>
+          <i class="ti ti-mail"></i>
           <input class="fi" type="email" placeholder="example@gmail.com" autocomplete="email"/>
         </div>
       </div>
@@ -200,13 +212,11 @@ const html = `
     <div class="frow g3">
       <div class="field" style="grid-column:1/2;">
         <div class="fi-wrap">
-          <i class="ti ti-world" aria-hidden="true"></i>
+          <i class="ti ti-world"></i>
           <input class="lang-inp" id="li" type="text" placeholder="Spoken Language"/>
         </div>
-        <!-- Tags appear BELOW the underline -->
         <div class="lang-tags-row" id="ltags"></div>
       </div>
-      <!-- Joining Date -->
       <div class="field" style="grid-column:2/3;">
         <div class="fi-wrap" id="jdateWrap">
           <div class="date-field">
@@ -223,7 +233,7 @@ const html = `
     <div class="frow g1" style="margin-bottom:28px;">
       <div class="field">
         <div class="fi-wrap">
-          <i class="ti ti-map-pin" aria-hidden="true"></i>
+          <i class="ti ti-map-pin"></i>
           <input class="fi" type="text" placeholder="Street Address"/>
         </div>
       </div>
@@ -236,16 +246,16 @@ const html = `
         <div class="pro-hdr">Assigned Tasks</div>
         <div id="tlist"></div>
         <div class="bul-inp-row">
-          <i class="ti ti-check" id="tadd"></i>
-          <input class="bul-inp" id="tinp" type="text" placeholder="Add a task..."/>
+          <input class="bul-inp" id="tinp" type="text" placeholder="Add a task…"/>
+          <i class="ti ti-check bul-add-btn" id="tadd"></i>
         </div>
       </div>
       <div>
         <div class="pro-hdr">Work Capabilities</div>
         <div id="clist"></div>
         <div class="bul-inp-row">
-          <i class="ti ti-check" id="cadd"></i>
-          <input class="bul-inp" id="cinp" type="text" placeholder="Add a capability..."/>
+          <input class="bul-inp" id="cinp" type="text" placeholder="Add a capability…"/>
+          <i class="ti ti-check bul-add-btn" id="cadd"></i>
         </div>
       </div>
     </div>
@@ -255,8 +265,8 @@ const html = `
         <div class="pro-hdr">Speciality</div>
         <div id="slist"></div>
         <div class="bul-inp-row" style="margin-top:4px;">
-          <i class="ti ti-check" id="sadd"></i>
-          <input class="bul-inp" id="sinp" type="text" placeholder="Add a speciality..."/>
+          <input class="bul-inp" id="sinp" type="text" placeholder="Add a speciality…"/>
+          <i class="ti ti-check bul-add-btn" id="sadd"></i>
         </div>
       </div>
       <div class="bot-right">
@@ -296,6 +306,7 @@ function initForm(root: HTMLDivElement) {
     });
     list.appendChild(item);
   }
+
   function setup(inpId: string, addId: string, listId: string) {
     const inp = root.querySelector(`#${inpId}`) as HTMLInputElement;
     const btn = root.querySelector(`#${addId}`)!;
@@ -303,12 +314,13 @@ function initForm(root: HTMLDivElement) {
     inp.addEventListener("keydown", (e) => { if ((e as KeyboardEvent).key === "Enter") { e.preventDefault(); add(); } });
     btn.addEventListener("click", add);
   }
+
   setup("tinp","tadd","tlist"); setup("cinp","cadd","clist"); setup("sinp","sadd","slist");
   ["Menu planning and development","Kitchen management","Food quality control","Staff supervision"].forEach(t => makeBullet("tlist",t));
   ["Grilling","Stock control","Team leadership","Hygiene standards"].forEach(c => makeBullet("clist",c));
   ["BBQ","Karahi","Biryani","Grilling"].forEach(s => makeBullet("slist",s));
 
-  /* ── Language tags (below the underline) ── */
+  /* ── Language tags ── */
   const langs: string[] = ["Urdu","Punjabi"];
   const ltags = root.querySelector("#ltags")!;
   const li    = root.querySelector("#li") as HTMLInputElement;
@@ -342,21 +354,15 @@ function initForm(root: HTMLDivElement) {
     }
   });
 
-  /* ── Date picker ──
-     The .date-native input sits transparently over the field area.
-     Clicking anywhere on the row triggers the native picker directly
-     (real user gesture → browser allows it, works inside iframes).
-     Once a value is set: overlay gets .locked (pointer-events:none)
-     so the field is display-only; only the calendar icon re-opens it.
-  ── */
+  /* ── Date pickers ── */
   function formatDate(val: string) {
     if (!val) return "";
-    const [y, m, d] = val.split("-");
+    const [y,m,d] = val.split("-");
     const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     return `${d} ${months[parseInt(m,10)-1]} ${y}`;
   }
 
-  function setupDate(displayId: string, nativeId: string, calId: string) {
+  function setupDate(displayId: string, nativeId: string, calId: string, placeholder: string) {
     const display = root.querySelector(`#${displayId}`) as HTMLElement;
     const native  = root.querySelector(`#${nativeId}`)  as HTMLInputElement;
     const cal     = root.querySelector(`#${calId}`)!;
@@ -365,29 +371,25 @@ function initForm(root: HTMLDivElement) {
       if (native.value) {
         display.textContent = formatDate(native.value);
         display.classList.add("has-val");
-        native.classList.add("locked");   // field click no longer opens picker
+        native.classList.add("locked");
       } else {
-        display.textContent = display.id === "dobDisplay" ? "Date of Birth" : "Joining Date";
+        display.textContent = placeholder;
         display.classList.remove("has-val");
         native.classList.remove("locked");
       }
     });
 
-    /* Calendar icon always opens picker (direct click = user gesture) */
     cal.addEventListener("click", () => {
-      native.classList.remove("locked");        // briefly unlock
-      native.click();                           // fire native click → picker opens
-      // re-lock after a tick if value was set
-      setTimeout(() => {
-        if (native.value) native.classList.add("locked");
-      }, 100);
+      native.classList.remove("locked");
+      native.click();
+      setTimeout(() => { if (native.value) native.classList.add("locked"); }, 100);
     });
   }
 
-  setupDate("dobDisplay",   "dob",   "dobCal");
-  setupDate("jdateDisplay", "jdate", "jdateCal");
+  setupDate("dobDisplay",   "dob",   "dobCal",   "Date of Birth");
+  setupDate("jdateDisplay", "jdate", "jdateCal", "Joining Date");
 
-  /* ── Avatar drag & drop ── */
+  /* ── Avatar ── */
   const avRing = root.querySelector("#avRing") as HTMLElement;
   const avImg  = root.querySelector("#avImg")  as HTMLImageElement;
   const avFile = root.querySelector("#avFile") as HTMLInputElement;
