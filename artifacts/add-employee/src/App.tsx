@@ -86,15 +86,22 @@ const css = `
   font-family:'Raleway',sans-serif;font-size:14px;
   width:100%;cursor:pointer;color-scheme:dark;position:relative;z-index:2;
 }
-.date-inp.empty{color:transparent;}
+.date-inp.empty{
+  opacity:0;position:absolute;inset:0;width:100%;height:100%;z-index:3;cursor:pointer;
+}
+.date-inp.empty::-webkit-calendar-picker-indicator{
+  position:absolute;inset:0;width:100%;height:100%;cursor:pointer;
+}
 .date-inp:not(.empty){color:#F5E6C8;}
-.date-inp::-webkit-calendar-picker-indicator{
+.date-inp:not(.empty)::-webkit-calendar-picker-indicator{
   filter:invert(65%) sepia(40%) saturate(600%) hue-rotate(10deg);
   cursor:pointer;opacity:.6;
 }
-.date-inp::-webkit-calendar-picker-indicator:hover{opacity:1;}
-.date-inp.empty::-webkit-calendar-picker-indicator{
-  position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;
+.date-inp:not(.empty)::-webkit-calendar-picker-indicator:hover{opacity:1;}
+.date-cal-icon{
+  font-size:14px;color:rgba(196,130,10,0.52);
+  position:absolute;right:0;top:50%;transform:translateY(-50%);
+  pointer-events:none;z-index:2;
 }
 
 /* ── Custom Gender Dropdown ── */
@@ -232,6 +239,7 @@ const html = `
         <div class="fi-wrap">
           <div class="date-wrap empty" id="dobWrap" data-ph="Date of Birth">
             <input type="date" class="date-inp empty" id="dob"/>
+            <i class="ti ti-calendar date-cal-icon" id="dobIcon"></i>
           </div>
         </div>
       </div>
@@ -272,6 +280,7 @@ const html = `
         <div class="fi-wrap">
           <div class="date-wrap empty" id="jdateWrap" data-ph="Joining Date">
             <input type="date" class="date-inp empty" id="jdate"/>
+            <i class="ti ti-calendar date-cal-icon" id="jdateIcon"></i>
           </div>
         </div>
       </div>
@@ -337,19 +346,15 @@ function formatComma(raw: string): string {
   return digits ? Number(digits).toLocaleString("en-US") : "";
 }
 
-function setupDatePlaceholder(inp: HTMLInputElement, wrap: HTMLElement) {
+function setupDatePlaceholder(inp: HTMLInputElement, wrap: HTMLElement, icon?: HTMLElement | null) {
   function sync() {
     const empty = !inp.value;
     inp.classList.toggle("empty", empty);
     wrap.classList.toggle("empty", empty);
+    if (icon) icon.style.display = empty ? "" : "none";
   }
   inp.addEventListener("change", sync);
   inp.addEventListener("input", sync);
-  inp.addEventListener("click", () => {
-    if (inp.classList.contains("empty")) {
-      try { inp.showPicker(); } catch { inp.focus(); }
-    }
-  });
   sync();
 }
 
@@ -391,8 +396,8 @@ function initForm(root: HTMLDivElement) {
   });
 
   /* Date placeholders */
-  setupDatePlaceholder(root.querySelector("#dob") as HTMLInputElement, root.querySelector("#dobWrap") as HTMLElement);
-  setupDatePlaceholder(root.querySelector("#jdate") as HTMLInputElement, root.querySelector("#jdateWrap") as HTMLElement);
+  setupDatePlaceholder(root.querySelector("#dob") as HTMLInputElement, root.querySelector("#dobWrap") as HTMLElement, root.querySelector("#dobIcon") as HTMLElement);
+  setupDatePlaceholder(root.querySelector("#jdate") as HTMLInputElement, root.querySelector("#jdateWrap") as HTMLElement, root.querySelector("#jdateIcon") as HTMLElement);
 
   /* CNIC auto-mask: 12345-1234567-1 */
   const cnicInp = root.querySelector("#cnic") as HTMLInputElement;
