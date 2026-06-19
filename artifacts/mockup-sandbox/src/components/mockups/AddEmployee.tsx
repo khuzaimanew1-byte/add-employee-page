@@ -4,7 +4,6 @@ const css = `
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Raleway:wght@300;400;500;600&display=swap');
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css');
 
-/* ── Scrollbar ── */
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(196,130,10,0.32);border-radius:3px;}
@@ -20,16 +19,7 @@ const css = `
 
 /* ── Avatar ── */
 .av-sec{display:flex;flex-direction:column;align-items:center;padding-top:38px;margin-bottom:22px;}
-.av-ring{
-  width:116px;height:116px;border-radius:50%;
-  border:1.5px solid rgba(196,130,10,0.7);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  cursor:pointer;
-  background:rgba(196,130,10,0.05);
-  transition:background 0.25s,border-color 0.25s,box-shadow 0.25s;
-  position:relative;overflow:hidden;
-  box-shadow:0 0 0 4px rgba(196,130,10,0.06);
-}
+.av-ring{width:116px;height:116px;border-radius:50%;border:1.5px solid rgba(196,130,10,0.7);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:rgba(196,130,10,0.05);transition:background 0.25s,border-color 0.25s,box-shadow 0.25s;position:relative;overflow:hidden;box-shadow:0 0 0 4px rgba(196,130,10,0.06);}
 .av-ring:hover{background:rgba(196,130,10,0.11);border-color:#C4820A;box-shadow:0 0 0 6px rgba(196,130,10,0.1);}
 .av-ring.drag-over{border-color:#C4820A;background:rgba(196,130,10,0.18);box-shadow:0 0 0 8px rgba(196,130,10,0.14);}
 .av-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:50%;display:none;}
@@ -38,89 +28,88 @@ const css = `
 .av-inner i{font-size:24px;color:#C4820A;}
 .av-inner span{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:1.8px;color:rgba(196,130,10,0.65);text-transform:uppercase;}
 .av-ring.has-img .av-inner{opacity:0;}
-.av-ring.has-img:hover .av-inner{
-  opacity:1;position:absolute;inset:0;border-radius:50%;
-  background:rgba(26,29,35,0.62);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  z-index:2;
-}
+.av-ring.has-img:hover .av-inner{opacity:1;position:absolute;inset:0;border-radius:50%;background:rgba(26,29,35,0.62);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:2;}
 .av-file{display:none;}
 
 /* ── Salary ── */
-.sal-sec{display:flex;flex-direction:column;align-items:center;margin-bottom:28px;}
+.sal-sec{display:flex;align-items:center;justify-content:center;margin-bottom:28px;}
 .sal-wrap{display:flex;align-items:center;gap:7px;position:relative;width:220px;}
 .sal-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(196,130,10,0.22);}
 .sal-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
 .sal-wrap:focus-within::after{transform:scaleX(1);}
 .sal-icon{font-size:13px;color:rgba(196,130,10,0.52);padding-bottom:7px;flex-shrink:0;}
 .sal-pkr{font-family:'Cinzel',serif;font-size:9.5px;color:#C4820A;opacity:0.7;letter-spacing:1.2px;padding-bottom:7px;flex-shrink:0;}
-.sal-inp{
-  background:transparent;border:none;outline:none;
-  color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;
-  width:100%;padding-bottom:7px;
-}
+.sal-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;font-weight:500;width:100%;padding-bottom:7px;}
 .sal-inp::placeholder{color:rgba(245,230,200,0.28);font-size:13px;font-weight:400;}
 
-/* ── Divider ── */
 .ep .divider{border:none;border-top:1px solid rgba(196,130,10,0.12);margin:0 0 26px;}
-
-/* ── Grid ── */
 .frow{display:grid;gap:0 40px;margin-bottom:26px;}
 .g3{grid-template-columns:1fr 1fr 1fr;}
 .g2{grid-template-columns:1fr 1fr;}
 .g1{grid-template-columns:1fr;}
 .field{position:relative;padding-bottom:2px;}
 
-/* ── Field row — underline animates left→right ── */
+/* ── Field underline ── */
 .fi-wrap{position:relative;display:flex;align-items:center;gap:7px;padding-bottom:6px;}
 .fi-wrap::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(245,230,200,0.12);}
 .fi-wrap::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
-.fi-wrap:focus-within::after{transform:scaleX(1);}
-.fi-wrap > i.field-icon{font-size:14px;color:rgba(196,130,10,0.52);flex-shrink:0;}
+.fi-wrap:focus-within::after,.fi-wrap.focused::after{transform:scaleX(1);}
+.fi-wrap>.field-icon{font-size:14px;color:rgba(196,130,10,0.52);flex-shrink:0;}
 .fi{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;width:100%;}
 .fi::placeholder{color:rgba(245,230,200,0.28);}
 
-/* ── Select ── */
-.gsel{
-  background:transparent;border:none;outline:none;
-  color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;
-  width:100%;-webkit-appearance:none;appearance:none;cursor:pointer;
+/* ── Custom Gender Dropdown ── */
+.csel{position:relative;flex:1;}
+.csel-face{display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;user-select:none;}
+.csel-face i{font-size:13px;color:rgba(196,130,10,0.52);transition:transform 0.2s;flex-shrink:0;}
+.csel.open .csel-face i{transform:rotate(180deg);}
+.csel-opts{
+  display:none;position:absolute;top:calc(100% + 8px);left:-28px;right:-10px;
+  background:#1e2229;border:1px solid rgba(196,130,10,0.25);
+  border-radius:3px;z-index:100;overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,0.45);
 }
-.gsel.placeholder-shown{color:rgba(245,230,200,0.28);}
-.gsel option{background:#272c34;color:#F5E6C8;}
-.chev{position:absolute;right:0;bottom:8px;font-size:13px;color:rgba(196,130,10,0.45);pointer-events:none;}
+.csel.open .csel-opts{display:block;}
+.csel-opt{
+  padding:9px 14px;font-family:'Raleway',sans-serif;font-size:13.5px;color:#F5E6C8;
+  cursor:pointer;transition:background 0.15s;
+}
+.csel-opt:hover{background:rgba(196,130,10,0.12);}
+.csel-opt.selected{color:#C4820A;}
 
-/* ── Date field ──
-   Shows placeholder text.
-   Clicking opens native picker (showPicker called directly in handler).
-   Once value set: shows formatted "DD Mon YYYY" text, only icon re-opens.
+/* ── Date Field ──
+   Phase 1: text placeholder + right calendar icon → focus opens picker
+   Phase 2 (after set): real styled <input type="date"> replaces it
 ── */
-.date-wrap{position:relative;flex:1;display:flex;align-items:center;}
-.date-vis{
+.date-ph1{display:flex;align-items:center;flex:1;position:relative;}
+.date-ph1-vis{
   background:transparent;border:none;outline:none;
   font-family:'Raleway',sans-serif;font-size:14px;
   color:rgba(245,230,200,0.28);
-  width:100%;cursor:pointer;
-  caret-color:transparent;
-  user-select:none;-webkit-user-select:none;
+  flex:1;cursor:pointer;caret-color:transparent;
 }
-.date-vis.set{color:#F5E6C8;cursor:default;}
-.date-vis::placeholder{color:rgba(245,230,200,0.28);}
-/* The real date input — zero-size, invisible, but receives showPicker() call */
-.date-real{
-  position:absolute;left:0;top:50%;transform:translateY(-50%);
-  width:1px;height:1px;opacity:0;pointer-events:none;border:none;outline:none;
+.date-ph1-vis::placeholder{color:rgba(245,230,200,0.28);}
+/* tiny invisible real input that receives showPicker() */
+.date-ph1-real{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;border:none;left:0;top:0;}
+.date-ph2{display:none;flex:1;}
+/* real type=date when value is set — styled to match */
+.date-set{
+  background:transparent;border:none;outline:none;
+  font-family:'Raleway',sans-serif;font-size:14px;color:#F5E6C8;
+  width:100%;color-scheme:dark;cursor:pointer;
 }
-.cal-btn{
-  font-size:14px;color:rgba(196,130,10,0.52);
-  cursor:pointer;flex-shrink:0;
-  transition:color 0.2s;
-  position:relative;z-index:2;
-  padding:2px;
+.date-set::-webkit-calendar-picker-indicator{
+  filter:invert(65%) sepia(40%) saturate(600%) hue-rotate(10deg);
+  cursor:pointer;opacity:0.6;
 }
+.date-set::-webkit-calendar-picker-indicator:hover{opacity:1;}
+/* hide calendar icon on left; date phase2 has its own on right via webkit */
+.cal-btn{font-size:14px;color:rgba(196,130,10,0.52);cursor:pointer;flex-shrink:0;transition:color 0.2s;}
 .cal-btn:hover{color:#C4820A;}
+/* hide cal-btn once date is set (native date input has its own icon) */
+.fi-wrap.date-set-mode .cal-btn{display:none;}
 
-/* ── Language tags ── */
+/* ── Language ── */
 .lang-inp{background:transparent;border:none;outline:none;color:#F5E6C8;font-family:'Raleway',sans-serif;font-size:14px;width:100%;}
 .lang-inp::placeholder{color:rgba(245,230,200,0.28);}
 .lang-tags-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
@@ -132,7 +121,6 @@ const css = `
 /* ── Pro sections ── */
 .pro-hdr{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:2.5px;color:#C4820A;text-transform:uppercase;margin-bottom:13px;opacity:0.85;}
 .pro-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:26px;}
-
 .bul-inp-row{display:flex;align-items:center;gap:8px;padding-bottom:6px;position:relative;}
 .bul-inp-row::before{content:'';position:absolute;bottom:0;left:0;right:0;height:1.5px;background:rgba(245,230,200,0.12);}
 .bul-inp-row::after{content:'';position:absolute;bottom:0;left:0;width:100%;height:2px;background:#C4820A;transform:scaleX(0);transform-origin:left;transition:transform 0.35s ease;}
@@ -147,7 +135,6 @@ const css = `
 .bul-txt[contenteditable="true"]{border-bottom-color:#C4820A;cursor:text;}
 .bul-del{font-size:13px;color:rgba(196,130,10,0.35);cursor:pointer;opacity:0;transition:opacity 0.15s;flex-shrink:0;}
 .bul-item:hover .bul-del{opacity:1;}
-
 .bot-row{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:6px;}
 .bot-right{display:flex;align-items:flex-end;justify-content:flex-end;gap:14px;padding-bottom:4px;}
 .btn-cancel{background:transparent;border:1px solid rgba(196,130,10,0.3);color:rgba(245,230,200,0.55);padding:9px 22px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all 0.22s;border-radius:2px;}
@@ -172,20 +159,14 @@ const html = `
   </div>
 
   <div class="ec">
-
-    <!-- Avatar -->
     <div class="av-sec">
       <div class="av-ring" id="avRing">
         <img class="av-img" id="avImg" alt=""/>
-        <div class="av-inner">
-          <i class="ti ti-upload"></i>
-          <span>Upload Photo</span>
-        </div>
+        <div class="av-inner"><i class="ti ti-upload"></i><span>Upload Photo</span></div>
       </div>
       <input class="av-file" type="file" id="avFile" accept="image/*"/>
     </div>
 
-    <!-- Salary (PKR auto-comma) -->
     <div class="sal-sec">
       <div class="sal-wrap">
         <i class="ti ti-coin sal-icon"></i>
@@ -196,7 +177,7 @@ const html = `
 
     <hr class="divider">
 
-    <!-- Row 1: Full Name · Gender · Date of Birth -->
+    <!-- Row 1: Name · Gender · DOB -->
     <div class="frow g3">
       <div class="field">
         <div class="fi-wrap">
@@ -204,27 +185,38 @@ const html = `
           <input class="fi" type="text" placeholder="Full Name"/>
         </div>
       </div>
+
+      <!-- Custom gender dropdown -->
       <div class="field" style="position:relative;">
-        <div class="fi-wrap">
+        <div class="fi-wrap" id="genderWrap">
           <i class="ti ti-users-group field-icon"></i>
-          <select class="gsel placeholder-shown" id="gsel">
-            <option value="" disabled selected>Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="custom">Custom</option>
-          </select>
-          <i class="ti ti-chevron-down chev"></i>
+          <div class="csel" id="csel">
+            <div class="csel-face" id="cselFace">
+              <span id="cselTxt">Male</span>
+              <i class="ti ti-chevron-down"></i>
+            </div>
+            <div class="csel-opts" id="cselOpts">
+              <div class="csel-opt selected" data-val="male">Male</div>
+              <div class="csel-opt" data-val="female">Female</div>
+              <div class="csel-opt" data-val="custom">Custom</div>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- Date of Birth -->
+
+      <!-- Date of Birth — Phase 1 → Phase 2 -->
       <div class="field">
-        <div class="fi-wrap">
-          <i class="ti ti-calendar field-icon"></i>
-          <div class="date-wrap">
-            <input class="date-vis" id="dobVis" type="text" placeholder="Date of Birth" readonly/>
-            <input class="date-real" id="dob" type="date"/>
+        <div class="fi-wrap" id="dobWrap">
+          <!-- Phase 1: placeholder text + calendar icon -->
+          <div class="date-ph1" id="dobPh1">
+            <input class="date-ph1-vis" id="dobVis" type="text" placeholder="Date of Birth" readonly/>
+            <input class="date-ph1-real" id="dob" type="date"/>
           </div>
-          <i class="ti ti-calendar-event cal-btn" id="dobCal"></i>
+          <!-- Phase 2: actual date input (shown after value set) -->
+          <div class="date-ph2" id="dobPh2">
+            <input class="date-set fi" id="dobSet" type="date"/>
+          </div>
+          <i class="ti ti-calendar cal-btn" id="dobCal"></i>
         </div>
       </div>
     </div>
@@ -260,15 +252,18 @@ const html = `
         </div>
         <div class="lang-tags-row" id="ltags"></div>
       </div>
-      <!-- Joining Date -->
+
+      <!-- Joining Date — Phase 1 → Phase 2 -->
       <div class="field" style="grid-column:2/3;">
-        <div class="fi-wrap">
-          <i class="ti ti-calendar field-icon"></i>
-          <div class="date-wrap">
-            <input class="date-vis" id="jdateVis" type="text" placeholder="Joining Date" readonly/>
-            <input class="date-real" id="jdate" type="date"/>
+        <div class="fi-wrap" id="jdateWrap">
+          <div class="date-ph1" id="jdatePh1">
+            <input class="date-ph1-vis" id="jdateVis" type="text" placeholder="Joining Date" readonly/>
+            <input class="date-ph1-real" id="jdate" type="date"/>
           </div>
-          <i class="ti ti-calendar-event cal-btn" id="jdateCal"></i>
+          <div class="date-ph2" id="jdatePh2">
+            <input class="date-set fi" id="jdateSet" type="date"/>
+          </div>
+          <i class="ti ti-calendar cal-btn" id="jdateCal"></i>
         </div>
       </div>
       <div style="grid-column:3/4;"></div>
@@ -319,79 +314,160 @@ const html = `
         <button class="btn-create">Create Employee</button>
       </div>
     </div>
-
   </div>
 </div>
 `;
 
+/* ── Pakistani lakh/crore comma format ──
+   1,000 / 10,000 / 1,00,000 / 10,00,000 / 1,00,00,000
+*/
+function formatPKR(digits: string): string {
+  if (!digits) return "";
+  const n = digits.replace(/\D/g, "");
+  if (n.length <= 3) return n;
+  const last3 = n.slice(-3);
+  const rest = n.slice(0, -3);
+  const groups: string[] = [];
+  for (let i = rest.length; i > 0; i -= 2) {
+    groups.unshift(rest.slice(Math.max(0, i - 2), i));
+  }
+  return groups.join(",") + "," + last3;
+}
+
 function initForm(root: HTMLDivElement) {
 
-  /* ── Salary: numbers only + PKR comma format ── */
+  /* ── Salary ── */
   const salInp = root.querySelector("#salInp") as HTMLInputElement;
-  salInp.addEventListener("input", () => {
-    const digits = salInp.value.replace(/\D/g, "");
-    if (!digits) { salInp.value = ""; return; }
-    salInp.value = Number(digits).toLocaleString("en-PK");
-  });
   salInp.addEventListener("keydown", (e) => {
     const k = (e as KeyboardEvent).key;
-    if (!/^\d$/.test(k) && !["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Home","End"].includes(k)) {
+    if (!/^\d$/.test(k) && !["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Home","End"].includes(k))
       e.preventDefault();
-    }
+  });
+  salInp.addEventListener("input", () => {
+    const raw = salInp.value.replace(/,/g, "");
+    salInp.value = formatPKR(raw);
   });
 
-  /* ── Gender select placeholder colour ── */
-  const gsel = root.querySelector("#gsel") as HTMLSelectElement;
-  gsel.addEventListener("change", () => gsel.classList.remove("placeholder-shown"));
+  /* ── Custom Gender Dropdown ── */
+  const csel     = root.querySelector("#csel") as HTMLElement;
+  const cselFace = root.querySelector("#cselFace") as HTMLElement;
+  const cselTxt  = root.querySelector("#cselTxt") as HTMLElement;
+  const cselOpts = root.querySelector("#cselOpts") as HTMLElement;
+  const gWrap    = root.querySelector("#genderWrap") as HTMLElement;
 
-  /* ── Date pickers ──
-     .date-vis  = readonly text input (shows placeholder or formatted date)
-     .date-real = tiny invisible <input type="date"> that receives showPicker()
-     Click on .date-vis (no value) → showPicker() directly (= user gesture → works in iframes)
-     Click on .cal-btn icon        → always showPicker()
-     After value set: .date-vis gets class .set, click does nothing; only icon works.
+  cselFace.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = csel.classList.toggle("open");
+    if (open) gWrap.classList.add("focused");
+    else gWrap.classList.remove("focused");
+  });
+  cselOpts.querySelectorAll(".csel-opt").forEach(opt => {
+    opt.addEventListener("click", (e) => {
+      e.stopPropagation();
+      cselOpts.querySelectorAll(".csel-opt").forEach(o => o.classList.remove("selected"));
+      opt.classList.add("selected");
+      cselTxt.textContent = (opt as HTMLElement).textContent;
+      csel.classList.remove("open");
+      gWrap.classList.remove("focused");
+    });
+  });
+  document.addEventListener("click", () => {
+    csel.classList.remove("open");
+    gWrap.classList.remove("focused");
+  });
+
+  /* ── Date picker — Phase 1 → Phase 2 ──
+     Phase 1: readonly text input with placeholder + hidden type=date
+     • Clicking text field (no value): showPicker() directly
+     • Calendar icon: showPicker() directly
+     Phase 2 (after value set):
+     • Hide ph1 elements + cal-btn
+     • Show actual styled <input type="date"> with value pre-filled
   ── */
-  function formatDate(val: string) {
-    const [y, m, d] = val.split("-");
-    const mo = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    return `${d} ${mo[parseInt(m,10)-1]} ${y}`;
-  }
-
-  function setupDate(visId: string, realId: string, calId: string, ph: string) {
+  function setupDate(
+    visId: string, realId: string, calId: string,
+    ph1Id: string, ph2Id: string, setId: string, wrapId: string,
+    placeholder: string
+  ) {
     const vis  = root.querySelector(`#${visId}`)  as HTMLInputElement;
     const real = root.querySelector(`#${realId}`) as HTMLInputElement;
-    const cal  = root.querySelector(`#${calId}`)!;
+    const cal  = root.querySelector(`#${calId}`)  as HTMLElement;
+    const ph1  = root.querySelector(`#${ph1Id}`)  as HTMLElement;
+    const ph2  = root.querySelector(`#${ph2Id}`)  as HTMLElement;
+    const setInp = root.querySelector(`#${setId}`) as HTMLInputElement;
+    const wrap = root.querySelector(`#${wrapId}`) as HTMLElement;
 
     function openPicker() {
       try { (real as any).showPicker(); }
       catch { real.focus(); }
     }
 
-    /* Click on the visible text field — only opens if no value set yet */
-    vis.addEventListener("click", () => {
-      if (!real.value) openPicker();
-    });
+    /* Phase 1: click on text field → open calendar */
+    vis.addEventListener("click", openPicker);
+    vis.addEventListener("focus", openPicker);
 
-    /* Calendar icon — always opens */
-    cal.addEventListener("click", (e) => {
-      e.stopPropagation();
-      openPicker();
-    });
+    /* Calendar icon → open calendar */
+    cal.addEventListener("click", (e) => { e.stopPropagation(); openPicker(); });
 
+    /* When native picker has a value → switch to Phase 2 */
     real.addEventListener("change", () => {
-      if (real.value) {
-        vis.value = formatDate(real.value);
-        vis.classList.add("set");       // lock field-click; only icon opens now
-      } else {
+      if (!real.value) return;
+      // Switch to phase 2
+      ph1.style.display = "none";
+      ph2.style.display = "flex";
+      wrap.classList.add("date-set-mode"); // hides cal-btn
+      setInp.value = real.value;
+      wrap.classList.add("focused");
+      setTimeout(() => wrap.classList.remove("focused"), 400);
+    });
+
+    /* Phase 2 date input changed → stay in phase 2, update hidden real */
+    setInp.addEventListener("change", () => {
+      real.value = setInp.value;
+      if (!setInp.value) {
+        // User cleared — back to phase 1
+        ph1.style.display = "flex";
+        ph2.style.display = "none";
+        wrap.classList.remove("date-set-mode");
         vis.value = "";
-        vis.placeholder = ph;
-        vis.classList.remove("set");
       }
     });
   }
 
-  setupDate("dobVis",   "dob",   "dobCal",   "Date of Birth");
-  setupDate("jdateVis", "jdate", "jdateCal", "Joining Date");
+  setupDate("dobVis","dob","dobCal","dobPh1","dobPh2","dobSet","dobWrap","Date of Birth");
+  setupDate("jdateVis","jdate","jdateCal","jdatePh1","jdatePh2","jdateSet","jdateWrap","Joining Date");
+
+  /* ── Language tags — placeholder ALWAYS stays ── */
+  const langs: string[] = ["Urdu","Punjabi"];
+  const ltags = root.querySelector("#ltags")!;
+  const li    = root.querySelector("#li") as HTMLInputElement;
+
+  function renderLangs() {
+    ltags.innerHTML = "";
+    langs.forEach(l => {
+      const tag = document.createElement("span"); tag.className = "lang-tag";
+      const lbl = document.createElement("span"); lbl.textContent = l;
+      const x   = document.createElement("span"); x.className = "lang-tag-del"; x.textContent = "✕";
+      x.addEventListener("click", (e) => { e.stopPropagation(); langs.splice(langs.indexOf(l),1); renderLangs(); });
+      tag.appendChild(lbl); tag.appendChild(x);
+      ltags.appendChild(tag);
+    });
+    // Placeholder ALWAYS visible — never clear it
+    li.placeholder = "Spoken Language";
+  }
+  renderLangs();
+
+  li.addEventListener("keydown", (e) => {
+    const key = (e as KeyboardEvent).key;
+    if (key === "Enter" || key === ",") {
+      e.preventDefault();
+      const v = li.value.trim().replace(/,/g,"");
+      if (v && !langs.includes(v)) { langs.push(v); renderLangs(); }
+      li.value = "";
+    } else if (key === "Backspace" && !li.value && langs.length) {
+      langs.pop(); renderLangs();
+    }
+  });
 
   /* ── Bullet lists ── */
   function makeBullet(listId: string, text: string) {
@@ -419,7 +495,6 @@ function initForm(root: HTMLDivElement) {
     });
     list.appendChild(item);
   }
-
   function setup(inpId: string, addId: string, listId: string) {
     const inp = root.querySelector(`#${inpId}`) as HTMLInputElement;
     const btn = root.querySelector(`#${addId}`)!;
@@ -427,48 +502,15 @@ function initForm(root: HTMLDivElement) {
     inp.addEventListener("keydown", (e) => { if ((e as KeyboardEvent).key === "Enter") { e.preventDefault(); add(); } });
     btn.addEventListener("click", add);
   }
-
   setup("tinp","tadd","tlist"); setup("cinp","cadd","clist"); setup("sinp","sadd","slist");
   ["Menu planning and development","Kitchen management","Food quality control","Staff supervision"].forEach(t => makeBullet("tlist",t));
   ["Grilling","Stock control","Team leadership","Hygiene standards"].forEach(c => makeBullet("clist",c));
   ["BBQ","Karahi","Biryani","Grilling"].forEach(s => makeBullet("slist",s));
 
-  /* ── Language tags ── */
-  const langs: string[] = ["Urdu","Punjabi"];
-  const ltags = root.querySelector("#ltags")!;
-  const li    = root.querySelector("#li") as HTMLInputElement;
-
-  function renderLangs() {
-    ltags.innerHTML = "";
-    langs.forEach(l => {
-      const tag = document.createElement("span"); tag.className = "lang-tag";
-      const lbl = document.createElement("span"); lbl.textContent = l;
-      const x   = document.createElement("span"); x.className = "lang-tag-del"; x.textContent = "✕";
-      x.addEventListener("click", (e) => { e.stopPropagation(); langs.splice(langs.indexOf(l),1); renderLangs(); });
-      tag.appendChild(lbl); tag.appendChild(x);
-      ltags.appendChild(tag);
-    });
-    li.placeholder = langs.length ? "" : "Spoken Language";
-  }
-  renderLangs();
-
-  li.addEventListener("keydown", (e) => {
-    const key = (e as KeyboardEvent).key;
-    if (key === "Enter" || key === ",") {
-      e.preventDefault();
-      const v = li.value.trim().replace(/,/g,"");
-      if (v && !langs.includes(v)) { langs.push(v); renderLangs(); }
-      li.value = "";
-    } else if (key === "Backspace" && !li.value && langs.length) {
-      langs.pop(); renderLangs();
-    }
-  });
-
   /* ── Avatar ── */
   const avRing = root.querySelector("#avRing") as HTMLElement;
   const avImg  = root.querySelector("#avImg")  as HTMLImageElement;
   const avFile = root.querySelector("#avFile") as HTMLInputElement;
-
   function applyImage(file: File) {
     if (!file?.type.startsWith("image/")) return;
     const r = new FileReader();
@@ -477,7 +519,7 @@ function initForm(root: HTMLDivElement) {
   }
   avRing.addEventListener("click", () => avFile.click());
   avFile.addEventListener("change", () => { if (avFile.files?.[0]) applyImage(avFile.files[0]); });
-  avRing.addEventListener("dragover",  (e) => { e.preventDefault(); avRing.classList.add("drag-over"); });
+  avRing.addEventListener("dragover", (e) => { e.preventDefault(); avRing.classList.add("drag-over"); });
   avRing.addEventListener("dragleave", () => avRing.classList.remove("drag-over"));
   avRing.addEventListener("drop", (e) => {
     e.preventDefault(); avRing.classList.remove("drag-over");
