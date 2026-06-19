@@ -139,11 +139,10 @@ const css = `
 }
 .date-set::-webkit-calendar-picker-indicator:hover{opacity:1;}
 
-/* Hide ghost zone once phase2 is active; cal-icon stays visible always */
+/* Hide ghost zone + cal-icon once phase2 is active */
 .fi-wrap.phase2 .date-ghost-zone{display:none;}
+.fi-wrap.phase2 .cal-icon{display:none;}
 .fi-wrap.phase2 .date-real-wrap{display:flex;}
-/* Hide native calendar indicator in phase2 — we use our own cal-icon */
-.date-set::-webkit-calendar-picker-indicator{display:none !important;}
 
 /* ── Language tags ── */
 .lang-inp{background:transparent;border:none;outline:none;color:#F5E6C8;
@@ -259,6 +258,7 @@ const html = `
       <!-- Date of Birth -->
       <div class="field">
         <div class="fi-wrap" id="dobWrap">
+          <i class="ti ti-calendar field-icon"></i>
           <!-- Phase 1: Ghost zone -->
           <div class="date-ghost-zone">
             <span class="date-phtext" id="dobPhText">Date of Birth</span>
@@ -309,6 +309,7 @@ const html = `
       <!-- Joining Date -->
       <div class="field" style="grid-column:2/3;">
         <div class="fi-wrap" id="jdateWrap">
+          <i class="ti ti-calendar field-icon"></i>
           <div class="date-ghost-zone">
             <span class="date-phtext" id="jdatePhText">Joining Date</span>
             <input type="date" class="date-ghost" id="jdateGhost"/>
@@ -407,13 +408,9 @@ function setupDate(
   const realWrap = root.querySelector(`#${realWrapId}`) as HTMLElement;
   const realInp  = root.querySelector(`#${realId}`)     as HTMLInputElement;
 
-  // Cal icon: Phase 1 → open ghost picker; Phase 2 → open real date picker
+  // Cal icon: direct click handler → showPicker on ghost (user gesture → works in iframe)
   calIcon.addEventListener("click", () => {
-    if (wrap.classList.contains("phase2")) {
-      try { realInp.showPicker(); } catch { realInp.focus(); }
-    } else {
-      try { ghost.showPicker(); } catch { ghost.focus(); ghost.click(); }
-    }
+    try { ghost.showPicker(); } catch { ghost.focus(); ghost.click(); }
   });
 
   // Ghost changed → activate Phase 2
