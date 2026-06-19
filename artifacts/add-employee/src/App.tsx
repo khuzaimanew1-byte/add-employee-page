@@ -95,9 +95,6 @@ const css = `
   cursor:pointer;opacity:.6;
 }
 .date-inp::-webkit-calendar-picker-indicator:hover{opacity:1;}
-.date-inp.empty::-webkit-calendar-picker-indicator{
-  position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;
-}
 
 /* ── Custom Gender Dropdown ── */
 .csel{position:relative;flex:1;outline:none;}
