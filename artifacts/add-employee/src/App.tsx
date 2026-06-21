@@ -131,13 +131,6 @@ const css = `
 
 .av-file{display:none;}
 
-/* "EMPLOYEE PROFILE" caption under halo */
-.av-cap{
-  margin-top:13px;margin-bottom:22px;
-  font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;
-  color:rgba(196,130,10,0.55);text-transform:uppercase;
-}
-
 /* ════════════════════════════════════════
    SALARY PILL  — compact chip
 ════════════════════════════════════════ */
@@ -398,7 +391,6 @@ const html = `
         </div>
       </div>
       <input class="av-file" type="file" id="avFile" accept="image/*"/>
-      <div class="av-cap">Employee Profile</div>
     </div>
 
     <!-- ── Salary Pill ── -->
