@@ -44,51 +44,52 @@ const css = `
   padding-top:40px;margin-bottom:0;
 }
 
-/* outer decorative halo — static, no spin */
+/* outer decorative halo — static */
 .av-halo{
-  width:148px;height:148px;
+  width:182px;height:182px;
   border-radius:50%;
-  border:1px solid rgba(196,130,10,0.22);
+  border:1px solid rgba(196,130,10,0.28);
   display:flex;align-items:center;justify-content:center;
   position:relative;flex-shrink:0;
+  /* faint secondary outer glow ring */
+  box-shadow:0 0 0 8px rgba(196,130,10,0.04),0 18px 48px rgba(0,0,0,0.45);
 }
-/* four small corner diamonds on the halo */
+/* top + bottom diamond ornaments */
 .av-halo::before,.av-halo::after{
   content:'';position:absolute;
-  width:6px;height:6px;
+  width:7px;height:7px;
   background:#C4820A;
   border-radius:1px;
   transform:rotate(45deg);
-  box-shadow:0 0 8px 2px rgba(196,130,10,0.55);
+  box-shadow:0 0 10px 3px rgba(196,130,10,0.6);
 }
-.av-halo::before{top:-3px;left:50%;margin-left:-3px;}
-.av-halo::after{bottom:-3px;left:50%;margin-left:-3px;}
+.av-halo::before{top:-3.5px;left:50%;margin-left:-3.5px;}
+.av-halo::after{bottom:-3.5px;left:50%;margin-left:-3.5px;}
 
 /* the clickable circle */
 .av-ring{
-  width:120px;height:120px;
+  width:148px;height:148px;
   border-radius:50%;
   cursor:pointer;
-  background:#313842;
+  background:radial-gradient(circle at 50% 38%,#3b4350,#2c343f);
   position:relative;overflow:hidden;
   display:flex;align-items:center;justify-content:center;
-  /* breathing gold ring */
   animation:ringBreath 3.6s ease-in-out infinite;
   transition:background .28s;
   flex-shrink:0;
 }
 @keyframes ringBreath{
-  0%,100%{box-shadow:0 0 0 2px #C4820A,0 0 0 6px rgba(196,130,10,0.13),0 10px 32px rgba(0,0,0,0.52);}
-  50%    {box-shadow:0 0 0 2px #C4820A,0 0 0 9px rgba(196,130,10,0.22),0 14px 40px rgba(0,0,0,0.58);}
+  0%,100%{box-shadow:0 0 0 2.5px #C4820A,0 0 0 7px rgba(196,130,10,0.13),0 12px 36px rgba(0,0,0,0.55);}
+  50%    {box-shadow:0 0 0 2.5px #C4820A,0 0 0 11px rgba(196,130,10,0.24),0 16px 48px rgba(0,0,0,0.62);}
 }
 .av-ring:hover{
-  background:#38404c;
+  background:radial-gradient(circle at 50% 38%,#424e5e,#323d4b);
   animation:none;
-  box-shadow:0 0 0 2px #C4820A,0 0 0 10px rgba(196,130,10,0.25),0 16px 44px rgba(0,0,0,0.62);
+  box-shadow:0 0 0 2.5px #C4820A,0 0 0 12px rgba(196,130,10,0.28),0 18px 52px rgba(0,0,0,0.65);
 }
 .av-ring.drag-over{
   animation:none;
-  box-shadow:0 0 0 2.5px #C4820A,0 0 0 12px rgba(196,130,10,0.28),0 16px 44px rgba(0,0,0,0.62);
+  box-shadow:0 0 0 3px #C4820A,0 0 0 14px rgba(196,130,10,0.3),0 18px 52px rgba(0,0,0,0.65);
 }
 
 /* uploaded photo */
@@ -101,19 +102,20 @@ const css = `
 
 /* default inner — camera + label */
 .av-inner{
-  display:flex;flex-direction:column;align-items:center;gap:8px;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
   position:relative;z-index:2;
   transition:opacity .2s;
 }
 .av-inner i{
-  font-size:28px;
+  font-size:34px;
   color:#C4820A;
   line-height:1;
+  filter:drop-shadow(0 0 8px rgba(196,130,10,0.45));
 }
 .av-inner span{
   font-family:'Cinzel',serif;
-  font-size:7px;letter-spacing:2.5px;
-  color:rgba(196,130,10,0.75);
+  font-size:7.5px;letter-spacing:3px;
+  color:rgba(196,130,10,0.78);
   text-transform:uppercase;
 }
 
@@ -122,12 +124,12 @@ const css = `
 .av-chg{
   display:none;
   position:absolute;inset:0;border-radius:50%;z-index:3;
-  background:rgba(18,21,27,0.72);
-  flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  background:rgba(16,19,24,0.75);
+  flex-direction:column;align-items:center;justify-content:center;gap:8px;
 }
 .av-ring.has-img:hover .av-chg{display:flex;}
-.av-chg i{font-size:22px;color:#F5E6C8;}
-.av-chg span{font-family:'Cinzel',serif;font-size:7px;letter-spacing:2px;color:rgba(245,230,200,0.75);text-transform:uppercase;}
+.av-chg i{font-size:26px;color:#F5E6C8;}
+.av-chg span{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:2.5px;color:rgba(245,230,200,0.78);text-transform:uppercase;}
 
 .av-file{display:none;}
 
@@ -164,12 +166,17 @@ const css = `
   background:transparent;border:none;outline:none;
   color:#F5E6C8;font-family:'Raleway',sans-serif;
   font-size:13px;font-weight:500;
-  width:68px;
-  transition:width .3s ease;
+  min-width:52px;
+  width:52px;
+  transition:width .15s ease;
 }
-.sal-inp:focus{width:104px;}
 .sal-inp::placeholder{
   color:rgba(245,230,200,0.4);font-weight:400;
+}
+/* hidden mirror span — JS reads its width to size the input */
+.sal-sizer{
+  position:absolute;visibility:hidden;white-space:pre;pointer-events:none;
+  font-family:'Raleway',sans-serif;font-size:13px;font-weight:500;
 }
 .sal-mo{
   font-family:'Cinzel',serif;font-size:9px;letter-spacing:1px;
@@ -395,7 +402,8 @@ const html = `
 
     <!-- ── Salary Pill ── -->
     <div class="sal-sec">
-      <div class="sal-pill">
+      <div class="sal-pill" style="position:relative;">
+        <span class="sal-sizer" id="salSizer"></span>
         <span class="sal-cur">PKR</span>
         <div class="sal-sep"></div>
         <input class="sal-inp" id="salInp" type="text" placeholder="XX,XXX" inputmode="numeric" autocomplete="off"/>
@@ -585,8 +593,14 @@ function collectFormData(root: HTMLElement) {
 
 function initForm(root: HTMLDivElement) {
 
-  /* ── Salary ── */
-  const salInp = root.querySelector("#salInp") as HTMLInputElement;
+  /* ── Salary — auto-resize pill to content ── */
+  const salInp  = root.querySelector("#salInp")  as HTMLInputElement;
+  const salSizer = root.querySelector("#salSizer") as HTMLElement;
+  function resizeSalPill() {
+    salSizer.textContent = salInp.value || salInp.placeholder;
+    const w = Math.max(52, salSizer.offsetWidth + 2);
+    salInp.style.width = w + "px";
+  }
   salInp.addEventListener("keydown", (e) => {
     const k = (e as KeyboardEvent).key;
     if (!/^\d$/.test(k) && !["Backspace","Delete","ArrowLeft","ArrowRight","Tab","Home","End"].includes(k))
@@ -594,7 +608,9 @@ function initForm(root: HTMLDivElement) {
   });
   salInp.addEventListener("input", () => {
     salInp.value = formatComma(salInp.value.replace(/,/g, ""));
+    resizeSalPill();
   });
+  resizeSalPill();
 
   /* ── Dates ── */
   setupDatePlaceholder(root.querySelector("#dob")   as HTMLInputElement, root.querySelector("#dobWrap")   as HTMLElement);
